@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Admin View{% endblock %}
+{% block content %}
+<section class="callout">
+    <div class="container px-4 px-lg-5 text-center">
+        <h2 class="mx-auto mb-5">
+            Empleados
+        </h2>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {% if employee_list %}
+                <table class="table table-striped table-dark table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                        <th>Dni</th>
+                        <th>Username</th>
+                        <th>Nombre y apellidos</th>
+                        <th>Direccion</th>
+                        <th>Biografia</th>
+                        <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for e in employee_list %}
+                    <tr>
+                        <td>{{ e.dni }}</td>
+                        <td>{{ e.userId.username }}</td>
+                        <td>{{ e.name }} {{ e.surname }}</td>
+                        <td>{{ e.address }}</td>
+                        <td>{{ e.biography }}</td>
+                        <td>
+                            <form>
+                                <a class="btn btn-info" href="{% url 'updateEmployee' e.pk%}"><i class="fas fa-user-edit"></i></a>
+                                <a class="btn btn-info" href="{% url 'deleteUsuario' e.userId.pk%}"><i class="fas fa-trash-alt"></i></a>
+                                {% if e.userId.is_active %}
+                                <a class="btn btn-info" href="{% url 'changeUser' e.userId.pk%}"><i class="fas fa-user-slash"></i></a>
+                                {% else %}
+                                <a class="btn btn-info" href="{% url 'changeUser' e.userId.pk%}"><i class="fas fa-user"></i></a>
+                                {% endif %}
+                            </form>
+                        </td>
+                    {% endfor%}
+                    </tr>
+                    </tbody>
+                </table>
+                {% else %}
+                    <h3 class="mx-auto mb-5">No hay empleados...</h3>
+                {%endif%}
+                {% if messages %}
+                <ul class="message">
+                    {% for message in messages %}
+                    <p style="color:green">{{message}}</p>
+                    {% endfor %}
+                </ul>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content-section bg-primary text-white">
+    <div class="container px-4 px-lg-5 text-center">
+        <a class="btn btn-xl btn-dark" href="/adminViews/createEmployee">Agregar empleado</a>
+    </div>
+</section>
+{% endblock %}

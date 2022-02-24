@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Agregar empleado{% endblock %}
+{% block content %}
+<section class="callout">
+    <div class="container px-4 px-lg-5 text-center">
+        {% if user_form.username %}
+        <h2 class="mx-auto mb-5">
+            Agregar empleado
+        </h2>
+        {% else %}
+        <h2 class="mx-auto mb-5">
+            Editar empleado
+        </h2>
+        {% endif %}
+        <div class="container">
+            <br/>
+            <div class="panel panel-defaul">
+                <div class="panel-heading">
+                    <form action="" method="POST">
+                        {%csrf_token%}
+                        <div class="container">
+                        {{user_form.as_p}}
+                        </div>
+                        <div class="container">
+                        <label>Dni:</label>
+                        {{employee_form.dni}}
+                        </div>
+                        <br/>
+                        <div class="container">
+                        <label>Nombre:</label>
+                        {{employee_form.name}}
+                        </div>
+                        <br/>
+                        <div class="container">
+                        <label>Apellidos:</label>
+                        {{employee_form.surname}}
+                        </div>
+                        <br/>
+                        <div class="container">
+                        <label>Direccion:</label>
+                        {{employee_form.address}}
+                        </div>
+                        <br/>
+                        <div class="container">
+                        <label>Biografia:</label>
+                        {{employee_form.biography}}
+                        </div>
+                        <br/>
+                        <p>
+                            <input type="submit" class="btn btn-primary btn-block" value="Guardar"/>
+                            <a class="btn btn-primary btn-block" href="{% url 'listEmployee' %}">Volver</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

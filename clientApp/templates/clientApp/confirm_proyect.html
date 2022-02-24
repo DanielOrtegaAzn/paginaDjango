@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Confirmacion inscripcion{% endblock %}
+{% block content %}
+<section class="content-section bg-primary text-white">
+    <div class="container px-4 px-lg-5 text-center">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <h1 class="mb-1">Seguro que quieres inscribirte al proyecto {{name}}?</h1>
+        <br/>
+        <br/>
+        <input class="btn btn-xl btn-light me-4" type="submit" value="Confirmar">
+        <a class="btn btn-xl btn-dark" href="{% url 'listProyect' 0 week%}">Volver</a>
+    </form>
+    </div>
+</section>
+{% endblock %}

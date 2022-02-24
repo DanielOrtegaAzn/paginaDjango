@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Agregar categoria{% endblock %}
+{% block content %}
+<section class="callout">
+    <div class="container px-4 px-lg-5 text-center">
+        {% if category_form.id != 0 %}
+        <h2 class="mx-auto mb-5">
+            Agregar categoria
+        </h2>
+        {% else %}
+        <h2 class="mx-auto mb-5">
+            Editar categoria
+        </h2>
+        {% endif %}
+        <div class="container">
+            <br/>
+            <div class="panel panel-defaul">
+                <div class="panel-heading">
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {%csrf_token%}
+                        <label>Nombre:</label>
+                        {{form.name}}
+                        <br/><br/>
+                        <label>Foto:</label>
+                        {{form.photo}}
+                        <br/><br/>
+                        <p>
+                            <input type="submit" class="btn btn-primary btn-block" value="Guardar"/>
+                            <a class="btn btn-primary btn-block" href="{% url 'listCategory' %}">Volver</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

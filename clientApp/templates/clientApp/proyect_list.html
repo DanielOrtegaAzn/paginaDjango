@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Client View Proyects{% endblock %}
+{% block content %}
+<section class="callout">
+    <div class="container px-4 px-lg-5 text-center">
+        <h2 class="mx-auto mb-5">
+            {%if week == 0%}
+            Proyectos ({{category_name}})
+            {%else%}
+            Proyectos (proxima semana, {{category_name}})
+            {%endif%}
+        </h2>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {% if proyect_list %}
+                <table class="table table-striped table-dark table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                        <th>Titulo</th>
+                        <th>Descripcion</th>
+                        <th>Nivel</th>
+                        <th>Fecha de inicio</th>
+                        <th>Fecha de fin</th>
+                        <th>Informe final</th>
+                        <th>Empleado</th>
+                        <th>Categoria</th>
+                        <th>Inscribirse</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for p in proyect_list %}
+                    <tr>
+                        <td>{{ p.0.title }}</td>
+                        <td>{{ p.0.description }}</td>
+                        <td>{{ p.0.level }}</td>
+                        <td>{{ p.0.startDate }}</td>
+                        <td>{{ p.0.endDate }}</td>
+                        <td>{{p.0.endingReport}}</td>
+                        <td>{{p.0.employeeId.userId.username}}</td>
+                        <td>{{p.0.categoryId.name}}</td>
+                        <td>
+                            <form>
+                                {% if p.1 == False%}
+                                <a class="btn btn-info" href="{% url 'confirmProyect' p.0.pk week %}"><i class="fas fa-user-plus"></i></a>
+                                {% else %}
+                                <p>Ya estas inscrito</p>
+                                {% endif %}
+                            </form>
+                        </td>
+                    {% endfor%}
+                    </tr>
+                    </tbody>
+                </table>
+                {% else %}
+                    <h3 class="mx-auto mb-5">No hay proyectos...</h3>
+                {%endif%}
+                {% if messages %}
+                <ul class="message">
+                    {% for message in messages %}
+                    {% if message.tags == "warning"%}
+                    <p style="color:red">{{message}}</p>
+                    {% else %}
+                    <p style="color:green">{{message}}</p>
+                    {%endif%}
+                    {% endfor %}
+                </ul>
+                {%endif%}
+                <select onchange="location = this.value;">
+                    <option value="-">Filtro por categorias</option>
+                    {% if week == 0%}
+                    <option value="{% url 'listProyect' 0 0 %}">Todas</option>
+                    {% for c in category_list%}
+                    <option value="{% url 'listProyect' c.pk 0 %}">{{c.name}}</option>
+                    {% endfor %}
+                    {%else%}
+                    <option value="{% url 'listProyect' 0 1 %}">Todas</option>
+                    {% for c in category_list%}
+                    <option value="{% url 'listProyect' c.pk 1 %}">{{c.name}}</option>
+                    {% endfor %}
+                    {%endif%}
+                </select>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content-section bg-primary text-white">
+    <div class="container px-4 px-lg-5 text-center">
+        {% if week == 0 %}
+        <a class="btn btn-xl btn-dark" href="{% url 'listProyect' 0 1%}">Ver proyectos de comienzan la proxima semana</a>
+        {% else %}
+        <a class="btn btn-xl btn-dark" href="{% url 'listProyect' 0 0%}">Volver</a>
+        {%endif%}
+    </div>
+</section>
+{% endblock %}

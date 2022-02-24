@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+    <!-- Callout-->
+    <section class="callout">
+        <div class="container px-4 px-lg-5 text-center">
+            <form action="" method="post">
+                {% csrf_token %}
+                <h2 class="mx-auto mb-5">
+                    Iniciar sesion
+                </h2>
+                {% if form.non_field_errors %}
+                <p style="color: red">Usuario o contraseña incorrectos</p>
+                {% endif %}
+                <p>
+                    <input type="text" name="username" autofocus required id="id_username" placeholder="Usuario"
+                    class="form-control"/>
+                </p>
+                <p>
+                    <input type="password" name="password" autofocus required id="id_password" placeholder="Contraseña"
+                    class="form-control"/>
+                </p>
+                {% if 'register' in request.GET %}
+                <p style="color:green">Usuario registrado correctamente</p>
+                {%endif%}
+
+                {% if 'logout' in request.GET %}
+                
+                <p style = "color:green">Usuario desconectado con exito.</p>
+
+                {% endif %}
+                <p>
+                    <input type="submit" class="btn btn-primary btn-block" value="Acceder">
+                </p>
+            </form>
+        </div>
+    </section>
+{% endblock %}
