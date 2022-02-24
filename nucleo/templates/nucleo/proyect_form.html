@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Nuevo proyecto{% endblock %}
+{% block content %}
+    <section class="callout">
+        <div class="container px-4 px-lg-5 text-center">
+            {% if proyect.id != null %}
+            <h2 class="mx-auto mb-5">
+                Actualizar proyecto
+            </h2>
+            {% else %}
+            <h2 class="mx-auto mb-5">
+                Nuevo proyecto
+            </h2>
+            {% endif %}
+            <form action="" method="POST">
+                {% csrf_token %}
+                <table>
+                    {% if proyect.id != null %}
+                        {{ form.as_p }}
+                    {% else %}
+                        {{proyect_form.as_p}}
+                    {% endif %}
+                </table>
+            </br>
+            <input type="submit" class="btn btn-primary" value="Insertar"/>
+            </form>
+        </div>
+    </section>
+{% endblock %}

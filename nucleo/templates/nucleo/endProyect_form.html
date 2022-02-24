@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Finalizar proyecto{% endblock %}
+{% block content %}
+<section class="callout">
+    <div class="container px-4 px-lg-5 text-center">
+        <h2 class="mx-auto mb-5">
+            Finalizar proyecto
+        </h2>
+        <div class="container">
+            <br/>
+            <div class="panel panel-defaul">
+                <div class="panel-heading">
+                    <form action="" method="POST">
+                        {%csrf_token%}
+                        <div class="container">
+                            <h4>Reporte final:</h4>
+                            {{endProyect_form.endingReport}}
+                        </div>
+                        <br/>
+                        {% if messages %}
+                        <ul class="message">
+                            {% for message in messages %}
+                            <p style="color:red">{{message}}</p>
+                            {% endfor %}
+                        </ul>
+                        {%endif%}
+                        <p>
+                            <input type="submit" class="btn btn-primary btn-block" value="Finalizar"/>
+                            <a class="btn btn-primary btn-block" href="{% url 'proyectList' %}">Volver</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

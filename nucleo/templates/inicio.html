@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Inicio{% endblock %}
+{% block content %}
+<!-- Header-->
+<header class="masthead d-flex align-items-center">
+    <div class="container px-4 px-lg-5 text-center">
+        <h1 class="mb-1">Bienvenido</h1>
+        <h3 class="mb-5"><em>A nuestra empresa de gestion de proyectos</em></h3>
+        <a class="btn btn-primary btn-xl" href="#about">Descubre mas</a>
+    </div>
+</header>
+<!-- Call to Action-->
+<section class="content-section bg-primary text-white">
+    <div class="container px-4 px-lg-5 text-center">
+        {% if not request.user.is_authenticated %}
+        <h2 class="mb-4">Estas a un solo click del siguiente paso...</h2>
+        <a class="btn btn-xl btn-light me-4" href="{% url 'login' %}">Iniciar sesion</a>
+        <a class="btn btn-xl btn-dark" href="{% url 'registro' %}">Registrarse</a>
+        {% else %}
+        <h2 class="mb-4">En caso que quiera cerrar sesion...</h2>
+        <a class="btn btn-xl btn-dark" href="{% url 'logout' %}">Salir</a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

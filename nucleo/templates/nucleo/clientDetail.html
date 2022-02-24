@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Detalles alumno{% endblock %}
+{% block content %}
+<section class="callout">
+    <div class="container px-4 px-lg-5 text-center">
+        <h2 class="mx-auto mb-5">
+            Detalles alumno
+        </h2>
+        <div class = "container">
+            <br/>
+            <div class = "panel panel-default">
+                <div class = "panel-heading">
+                    <p>Nombre: {{ client.name }}</p>
+                    <p>Apellidos: {{ client.surname }}</p>
+                    <p>Dni: {{ client.dni }}</p>
+                    <p>Direccion: {{ client.address }}</p>
+                    <p>Fecha de nacimiento: {{ client.birthday }}</p>
+                    <p>Fecha de alta: {{ client.fechaAlta }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block title %}Lista alumnos{% endblock %}
+{% block loadFunction %}onload = "myFunction()"{% endblock %}
+{% block content %}
+<section class="callout">
+    <div class="container px-4 px-lg-5 text-center">
+        <h2 class="mx-auto mb-5">
+            lista de alumno
+        </h2>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <select id = "selectRole" onChange="myFunction()">
+                    <option value = "all">Todos</option>
+                    {% for role in roleList %}
+                        <option value = {{ role }} >{{ role }}</option>
+                    {% endfor %}
+                </select>
+                {% if notYours %}
+                <p style="color: red">{{ notYours }}</p>
+                {% endif %}
+                {% if participateList %}
+                <div id = "partList" style = "display: none;">
+                    <table class="table table-striped table-dark table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Dni</th>
+                                <th>Rol</th>
+                                <th>Detalles</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for p in participateList %}
+                        <tr>
+                            <td>{{ p.clientId.name }}</td>
+                            <td>{{ p.clientId.surname }}</td>
+                            <td>{{ p.clientId.dni }}</td>
+                            <td>{{ p.role }}</td>
+                            <td>
+                                <form>
+                                    <a class = "btn btn-info" href = "{% url 'participateRoleForm' p.id %}"><i class="fas fa-user-tag"></i></a>
+                                    <a class="btn btn-info" href="{% url 'alumnDetail' p.clientId.id %}"><i class="fas fa-user-plus"></i></a>
+                                </form>
+                            </td>
+                        {% endfor%}
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                    <h3 class="mx-auto mb-5" >No hay alumnos inscrito en este proyecto...</h3>
+                {%endif%}
+                {% if rol1List %}
+                    <div id = "rol1List" style = "display: none;">
+                        <table class="table table-striped table-dark table-bordered">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Apellidos</th>
+                                    <th>Dni</th>
+                                    <th>Rol</th>
+                                    <th>Detalles</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for p in rol1List %}
+                            <tr>
+                                <td>{{ p.clientId.name }}</td>
+                                <td>{{ p.clientId.surname }}</td>
+                                <td>{{ p.clientId.dni }}</td>
+                                <td>{{ p.role }}</td>
+                                <td>
+                                    <form>
+                                        <a class = "btn btn-info" href = "{% url 'participateRoleForm' p.id %}"><i class="fas fa-user-tag"></i></a>
+                                        <a class="btn btn-info" href="{% url 'alumnDetail' p.clientId.id %}"><i class="fas fa-user-plus"></i></a>
+                                    </form>
+                                </td>
+                            {% endfor%}
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+                {% if rol2List %}
+                    <div id = "rol2List" style = "display: none;">
+                        <table class="table table-striped table-dark table-bordered">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Apellidos</th>
+                                    <th>Dni</th>
+                                    <th>Rol</th>
+                                    <th>Detalles</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for p in rol2List %}
+                            <tr>
+                                <td>{{ p.clientId.name }}</td>
+                                <td>{{ p.clientId.surname }}</td>
+                                <td>{{ p.clientId.dni }}</td>
+                                <td>{{ p.role }}</td>
+                                <td>
+                                    <form>
+                                        <a class = "btn btn-info" href = "{% url 'participateRoleForm' p.id %}"><i class="fas fa-user-tag"></i></a>
+                                        <a class="btn btn-info" href="{% url 'alumnDetail' p.clientId.id %}"><i class="fas fa-user-plus"></i></a>
+                                    </form>
+                                </td>
+                            {% endfor%}
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block script %}
+    <script>
+        function myFunction() {
+            var selectRole = document.getElementById('selectRole');
+            var partList = document.getElementById('partList');
+            var rol1List = document.getElementById('rol1List');
+            var rol2List = document.getElementById('rol2List');
+            if (selectRole.options[selectRole.selectedIndex].value == 'all'){
+                partList.style.display = 'block';
+                rol1List.style.display = 'none';
+                rol2List.style.display = 'none';
+            } else if (selectRole.options[selectRole.selectedIndex].value == 'Participante'){
+                partList.style.display = 'none';
+                rol1List.style.display = 'block';
+                rol2List.style.display = 'none';
+            }
+            else if (selectRole.options[selectRole.selectedIndex].value == 'Organizador'){
+                partList.style.display = 'none';
+                rol1List.style.display = 'none';
+                rol2List.style.display = 'block';
+            }
+        }
+    </script>
+{% endblock %}

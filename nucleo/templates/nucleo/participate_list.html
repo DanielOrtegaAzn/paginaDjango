@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Lista proyectos{% endblock %}
+{% block content %}
+<section class="callout">
+    <div class="container px-4 px-lg-5 text-center">
+        <h2 class="mx-auto mb-5">Mis proyectos</h2>
+        <div class = "panel panel-default">
+            <div class = "panel-heading">
+                {% if participateList %}
+                    <table class="table table-striped table-dark table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Titulo</th>
+                                <th>Nivel</th>
+                                <th>Fecha finalizacion</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for participate in participateList %}
+                                <tr>
+                                    <th>{{ participate.proyectId.title }}</th>
+                                    <th>{{ participate.proyectId.level }}</th>
+                                    <th>{{ participate.proyectId.endDate }}</th>
+                                    <th><a class="btn btn-info" href = "{% url 'proyectDetail' participate.proyectId.id %}"><i class="fas fa-info-circle"></i></a></th>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+
+                    {% else %}
+                        <h3 class="mx-auto mb-5">No existen ningun proyecto actualmente.</h3>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content-section bg-primary text-white">
+    <div class="container px-4 px-lg-5 text-center">
+        <h2 class="mx-auto mb-5">Obtener PDF</h2>
+        <form method="POST" action="">
+        {% csrf_token %}
+        <label for="f1">Fecha de inicio:</label>
+        {{pdf_form.inicio}}
+        <br/><br/>
+        <label for="f2">Fecha de fin:</label>
+        {{pdf_form.final}}
+        <br/><br/>
+        <input class="btn btn-xl btn-dark" type="submit" value="Obtener PDF"></input>
+        </form>
+    </div>
+</section>
+{% endblock %}

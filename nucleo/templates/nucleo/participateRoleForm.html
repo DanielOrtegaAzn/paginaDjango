@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Asignar rol{% endblock %}
+{% block content %}
+    <section class="callout">
+        <div class="container px-4 px-lg-5 text-center">
+            <h2 class="mx-auto mb-5">
+                Asignar rol
+            </h2>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <table>
+                        {{participateForm.as_p}}
+                </table>
+            </br>
+            <input type="submit" class="btn btn-primary" value="Insertar"/>
+            </form>
+        </div>
+    </section>
+{% endblock %}

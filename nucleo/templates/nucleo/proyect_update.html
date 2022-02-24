@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Actualizar proyecto{% endblock %}
+{% block content %}
+    <section class="callout">
+        <div class="container px-4 px-lg-5 text-center">
+            <h2 class="mx-auto mb-5">
+                Actualizar proyecto
+            </h2>
+            <div class="container">
+                <br/>
+                <div class="panel panel-defaul">
+                    <div class="panel-heading">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            {{proyect_form.as_p}}
+                        </br>
+                        <input type="submit" class="btn btn-primary" value="Aceptar"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

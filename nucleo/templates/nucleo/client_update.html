@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Actualizar Perfil{% endblock %}
+{% block content %}
+<!-- Callout-->
+<section class="callout">
+    <div class="container px-4 px-lg-5 text-center">
+        <h2 class="mx-auto mb-5">
+            Actualizar Perfil
+        </h2>
+        <div class="container">
+            <br/>
+            <div class="panel panel-defaul">
+                <div class="panel-heading">
+                    <form action="" method="POST">
+                        {%csrf_token%}
+                        {{user_form.as_p}}
+                        {{client_form.as_p}}
+                        <p>
+                            <input type="submit" class="btn btn-primary btn-block" value="Confirmar"/>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

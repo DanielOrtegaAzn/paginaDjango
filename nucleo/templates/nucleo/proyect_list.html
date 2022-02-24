@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Lista proyectos{% endblock %}
+{% block content %}
+<section class="callout">
+    <div class="container px-4 px-lg-5 text-center">
+        <h2 class="mx-auto mb-5">Mis proyectos</h2>
+        <div class = "panel panel-default">
+            <div class = "panel-heading">
+                {% if proyect_list %}
+                    <table class="table table-striped table-dark table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Titulo</th>
+                                <th>Nivel</th>
+                                <th>Acciones</th>
+                                <th>Finalizar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for proyect in proyect_list %}
+                                <tr>
+                                    <th>{{ proyect.title }}</th>
+                                    <th>{{ proyect.level }}</th>
+                                    <th><a class="btn btn-info" href = "{% url 'proyectDetail' proyect.id %}"><i class="fas fa-info-circle"></i></a>
+                                        {% if user.is_employee %}
+                                            <a class="btn btn-info" href = "{% url 'proyectUpdate' proyect.id %}"><i class="fas fa-pen"></i></a>
+                                            <a class="btn btn-info" href = "{% url 'proyectAlumnList' proyect.id %}"><i class="fas fa-user"></i></a>
+                                            <a class="btn btn-info" href = "{% url 'proyectDelete' proyect.id %}"><i class="fas fa-trash-alt"></i></a>
+                                        {% endif %}
+                                    </th>
+                                    <th>
+                                        {% if proyect.isValid %}
+                                        <a class="btn btn-info" href = "{% url 'endProyect' proyect.id %}"><i class="far fa-calendar-check"></i></a>
+                                        {%else%}
+                                        <p>Este proyecto ya ha finalizado</p>
+                                        {%endif%}
+                                    </th>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+
+                    {% else %}
+                    <h3 class="mx-auto mb-5">No existen ningun proyecto actualmente.</h3>
+                    {% endif %}
+                {% if messages %}
+                <ul class="message">
+                    {% for message in messages %}
+                    {% if message.tags == "success"%}
+                    <p style="color:green">{{message}}</p>
+                    {%else%}
+                    <p style="color:red">{{message}}</p>
+                    {%endif%}
+                    {% endfor %}
+                </ul>
+                {%endif%}
+                <divclass="container px-4 px-lg-5 text-center">
+                    <a class="btn btn-xl btn-dark" href = "{% url 'proyectForm' %}">Nuevo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
